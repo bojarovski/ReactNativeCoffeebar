@@ -28,7 +28,7 @@ export const fetchCoffees = async (): Promise<NetworkResponse<Coffee[]>> => {
 export const fetchCoffee = async (
   eventId: number
 ): Promise<NetworkResponse<Coffee>> => {
-  const response = await _axios.get(`Coffees/${eventId}`);
+  const response = await _axios.get(`coffees/${eventId}`);
 
   if (response.data) {
     return {
@@ -47,11 +47,8 @@ export const fetchCoffee = async (
 export const createCoffee = async (
   body: Coffee
 ): Promise<NetworkResponse<Coffee>> => {
-  const response = await _axios.post(
-    "https://jsonplaceholder.typicode.com/posts",
-    body
-  );
-
+  console.log(body);
+  const response = await _axios.post("coffees", body);
   if (response.data) {
     console.log("Created Coffee is ", response.data);
     return {

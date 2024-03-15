@@ -1,21 +1,38 @@
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet } from "react-native";
-
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+import { View } from "@/components/Themed";
+import CustomInput from "@/components/CustomComponents/CustomInput";
+import { Button } from "react-native-paper";
 
 export default function ModalScreen() {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const nameText = (text: string) => {
+    setName(text);
+  };
+
+  const descriptionText = (text: string) => {
+    setDescription(text);
+  };
+
+  const handleCreate = () => {
+    console.log("Name:", name);
+    console.log("Description:", description);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+      <CustomInput type="decimal-pad" onChangeText={nameText} label="Name" />
+      <CustomInput
+        type="default"
+        onChangeText={descriptionText}
+        label="Description"
       />
-      <EditScreenInfo path="app/modal.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <Button icon="" mode="contained" onPress={handleCreate}>
+        Create
+      </Button>
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
   );
@@ -24,16 +41,5 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
 });

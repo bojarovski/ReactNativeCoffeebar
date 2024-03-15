@@ -1,18 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as apiClient from "../Api/apiCoffee";
 
-export type Login = {
-  body: {
-    email?: string;
-    password?: string;
-  };
-};
-
 export type Coffee = {
-  id: number;
+  id?: number;
   name?: string;
   description?: string;
-  // email?: string;
+  price?: number;
 };
 
 export type CoffeeListState = {
@@ -42,9 +35,9 @@ export const fetchCoffees = createAsyncThunk("fetchCoffees", async () => {
 
 export const fetchCoffee = createAsyncThunk<
   { Coffee: Coffee },
-  { eventId: number }
->("fetchCoffee", async ({ eventId }) => {
-  const response = await apiClient.fetchCoffee(eventId);
+  { coffeeId: number }
+>("fetchCoffee", async ({ coffeeId }) => {
+  const response = await apiClient.fetchCoffee(coffeeId);
   if (response.kind === "success") {
     return {
       Coffee: response.body ?? {},
@@ -58,6 +51,8 @@ export const createCoffee = createAsyncThunk<
   { addCoffee: Coffee },
   { body: Coffee }
 >("createCoffee", async ({ body }) => {
+  console.log(body, "<<<<<<<<<");
+
   const response = await apiClient.createCoffee(body);
   if (response.kind === "success") {
     return {
