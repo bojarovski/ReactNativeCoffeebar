@@ -6,6 +6,7 @@ import CustomInput from "@/components/CustomComponents/CustomInput";
 import { Button } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { createCoffee } from "@/store/models/coffeeListSlice";
+import CustomMultiSelect from "@/components/CustomComponents/CustomMultiSelect";
 
 export default function ModalScreen() {
   const [name, setName] = useState("");
@@ -38,6 +39,13 @@ export default function ModalScreen() {
 
     dispatch(createCoffee({ body: body }));
   };
+  const [selectedItems, setSelectedItems] = React.useState<any[]>([]); // Define the type of your selected items
+  const data = [
+    { id: 1, name: "Option 1" },
+    { id: 2, name: "Option 2" },
+    { id: 3, name: "Option 3" },
+    // Add more options as needed
+  ];
 
   return (
     <View style={styles.container}>
@@ -49,6 +57,12 @@ export default function ModalScreen() {
         label="Description"
       />
       <CustomInput type="decimal-pad" onChangeText={priceText} label="Price" />
+      <CustomMultiSelect
+        placeholder="Select options"
+        data={data}
+        selected={selectedItems}
+        setSelected={setSelectedItems}
+      ></CustomMultiSelect>
       <Button icon="" mode="contained" onPress={handleCreate}>
         Create
       </Button>
