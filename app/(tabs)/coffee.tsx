@@ -1,11 +1,14 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
-import { List, MD3Colors } from "react-native-paper";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { View } from "@/components/Themed";
 import CustomList from "@/components/CustomComponents/CustomList";
+import { fetchUsers } from "../../store/eventListSlice";
+import { useFocusEffect } from "expo-router";
 
 export default function TabOneScreen() {
+  const dispatch = useDispatch();
   const items = [
     {
       id: 1,
@@ -26,6 +29,11 @@ export default function TabOneScreen() {
       ],
     },
   ];
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(fetchUsers({}));
+    }, [dispatch])
+  );
   return (
     <View style={styles.container}>
       <CustomList items={items} expand={true}></CustomList>
