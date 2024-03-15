@@ -1,43 +1,28 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { View } from "@/components/Themed";
 import CustomList from "@/components/CustomComponents/CustomList";
-import { fetchUsers } from "../../store/eventListSlice";
+import { fetchCoffees } from "../../store/models/coffeeListSlice";
 import { useFocusEffect } from "expo-router";
+import { RootState } from "@/store/store";
 
 export default function TabOneScreen() {
   const dispatch = useDispatch();
-  const items = [
-    {
-      id: 1,
-      name: "Caffee1",
-      ingredients: [
-        { name: "Ingredient 1" },
-        { name: "Ingredient 2" },
-        { name: "Ingredient 3" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Caffee 2",
-      ingredients: [
-        { name: "Ingredient A" },
-        { name: "Ingredient B" },
-        { name: "Ingredient C" },
-      ],
-    },
-  ];
+  const coffees = useSelector((state: RootState) => state.coffeeList.coffees);
   useFocusEffect(
     useCallback(() => {
-      dispatch(fetchUsers({}));
+      dispatch(fetchCoffees());
     }, [dispatch])
   );
+  const apiCall = (id: number) => {
+    return dispatch(fetchCoffees());
+  };
   return (
-    <View style={styles.container}>
-      <CustomList items={items} expand={true}></CustomList>
-    </View>
+    <ScrollView style={styles.container}>
+      <CustomList items={coffees} apiCall={apiCall}></CustomList>
+    </ScrollView>
   );
 }
 

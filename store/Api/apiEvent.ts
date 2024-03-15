@@ -1,6 +1,5 @@
-import _axios from "../plugins/axios";
-import { User } from "./eventListSlice";
-import { number } from "yup";
+import _axios from "../../plugins/axios";
+import { User } from "../models/eventListSlice";
 
 type ResponseKind = "success" | "failure";
 
@@ -11,12 +10,11 @@ type NetworkResponse<T> = {
 
 export const fetchUsers = async (): Promise<NetworkResponse<User[]>> => {
   const response = await _axios.get("users");
-  console.log(response.data._embedded.users);
 
   if (response.data._embedded) {
     return {
       kind: "success",
-      body: response.data,
+      body: response.data._embedded.users,
     };
   } else {
     console.log("false");
@@ -30,9 +28,7 @@ export const fetchUsers = async (): Promise<NetworkResponse<User[]>> => {
 export const fetchUser = async (
   eventId: number
 ): Promise<NetworkResponse<User>> => {
-  const response = await _axios.get(
-    `https://jsonplaceholder.typicode.com/posts/${eventId}`
-  );
+  const response = await _axios.get(`users/${eventId}`);
 
   if (response.data) {
     return {

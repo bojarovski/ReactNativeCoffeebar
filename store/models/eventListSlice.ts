@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import * as apiClient from "./apiEvent";
+import * as apiClient from "../Api/apiEvent";
 
 export type Login = {
   body: {
@@ -10,8 +10,9 @@ export type Login = {
 
 export type User = {
   id?: number;
-  name?: string;
-  description?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
 };
 
 export type UserListState = {
@@ -57,7 +58,6 @@ export const deleteSession = createAsyncThunk<{ sessionId: string }, Login>(
 );
 // APIS
 export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
-  console.log("dasdasdasd213123123");
   const response = await apiClient.fetchUsers();
 
   if (response.kind === "success") {
