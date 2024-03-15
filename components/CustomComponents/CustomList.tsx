@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, List, Menu, PaperProvider } from "react-native-paper";
 import { Coffee } from "@/store/models/coffeeListSlice";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 interface Ingredient {
   name: string;
@@ -9,8 +9,8 @@ interface Ingredient {
 
 interface Props {
   items: Coffee[];
-  apiCall: (id: number) => Promise<void>; // Corrected type to Promise<void>
-  deleteApi: (id: number) => Promise<void>; // Corrected type to Promise<void>
+  apiCall: (id: number) => {}; // Corrected type to Promise<void>
+  deleteApi: (id: number) => void; // Corrected type to Promise<void>
 }
 
 const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi }) => {
@@ -18,15 +18,8 @@ const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi }) => {
     const res = await apiCall(item.id);
     setSecondItem(res.payload.coffees);
   };
-  const [visible, setVisible] = React.useState(false);
-
-  const openMenu = () => setVisible(true);
-
-  const closeMenu = () => setVisible(false);
 
   const deleteItem = async (id: number) => {
-    console.log("dasdasdsa");
-
     await deleteApi(id);
   };
 
@@ -41,24 +34,29 @@ const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi }) => {
             description={item.description}
             key={item.id}
             title={item.name}
-            onLongPress={openMenu}
             id={item.id.toString()}
           >
             {secondItem.map((ingredient, index) => (
               <List.Item key={index} title={ingredient.name} />
             ))}
-            <List.Item
-              titleStyle={{
-                borderWidth: 1,
-                borderColor: "#ff5733",
-                backgroundColor: "#FF5733", // Change background color of the button
-                textAlign: "center",
-                height: 30, // Center the text horizontally
-                marginHorizontal: 10, // Add margin on both sides
-                borderRadius: 10, // Add border radius to create rounded corners
+            <TouchableOpacity
+              onPress={() => deleteItem(item.id)} // Handle deletion here
+              style={{
+                backgroundColor: "#FF5733",
+                alignItems: "center",
+                paddingVertical: 5,
+                marginHorizontal: 10,
+                borderRadius: 10,
               }}
-              title="Delete"
-            />
+            >
+              <List.Item
+                titleStyle={{
+                  color: "#fff",
+                  textAlign: "center",
+                }}
+                title="Delete"
+              />
+            </TouchableOpacity>
           </List.Accordion>
         ))}
       </List.Section>

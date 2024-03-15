@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View } from "@/components/Themed";
 import CustomList from "@/components/CustomComponents/CustomList";
-import { fetchCoffees } from "../../store/models/coffeeListSlice";
+import { deleteCoffee, fetchCoffees } from "../../store/models/coffeeListSlice";
 import { useFocusEffect } from "expo-router";
 import { RootState } from "@/store/store";
 
@@ -19,9 +19,18 @@ export default function TabOneScreen() {
   const apiCall = (id: number) => {
     return dispatch(fetchCoffees());
   };
+  const deleteApi = (id: number) => {
+    dispatch(deleteCoffee({ coffeeId: id })).then(() => {
+      dispatch(fetchCoffees());
+    });
+  };
   return (
     <ScrollView style={styles.container}>
-      <CustomList items={coffees} apiCall={apiCall}></CustomList>
+      <CustomList
+        deleteApi={deleteApi}
+        items={coffees}
+        apiCall={apiCall}
+      ></CustomList>
     </ScrollView>
   );
 }

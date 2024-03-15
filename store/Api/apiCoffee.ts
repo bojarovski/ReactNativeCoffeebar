@@ -64,11 +64,9 @@ export const createCoffee = async (
 };
 
 export const deleteCoffee = async (
-  eventId: number
+  coffeeId: number
 ): Promise<NetworkResponse<Coffee>> => {
-  const response = await _axios.get(
-    `https://jsonplaceholder.typicode.com/posts/${eventId}`
-  );
+  const response = await _axios.delete(`coffees/${coffeeId}`);
 
   if (response.data) {
     return {

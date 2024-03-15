@@ -51,8 +51,6 @@ export const createCoffee = createAsyncThunk<
   { addCoffee: Coffee },
   { body: Coffee }
 >("createCoffee", async ({ body }) => {
-  console.log(body, "<<<<<<<<<");
-
   const response = await apiClient.createCoffee(body);
   if (response.kind === "success") {
     return {
@@ -65,9 +63,11 @@ export const createCoffee = createAsyncThunk<
 
 export const deleteCoffee = createAsyncThunk<
   { Coffees: Coffee },
-  { eventId: number }
->("deleteCoffee", async ({ eventId }) => {
-  const response = await apiClient.deleteCoffee(eventId);
+  { coffeeId: number }
+>("deleteCoffee", async ({ coffeeId }) => {
+  console.log(coffeeId);
+
+  const response = await apiClient.deleteCoffee(coffeeId);
   if (response.kind === "success") {
     return {
       Coffees: response.body ?? {},
