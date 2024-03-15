@@ -1,14 +1,32 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { Text, View } from "@/components/Themed";
+import CustomList from "@/components/CustomComponents/CustomList";
+import { TextInput } from "react-native-paper";
+import { useState } from "react";
+import CustomInput from "@/components/CustomComponents/CustomInput";
 
 export default function TabTwoScreen() {
+  const [text, setText] = useState("");
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+      <CustomInput
+        label="Coffee Name"
+        value={text}
+        onChangeText={(text) => setText(text)}
+      />
+      <CustomInput
+        label="Description"
+        value={text}
+        onChangeText={(text) => setText(text)}
+      />
+      <CustomInput
+        label="Ingredience"
+        value={text}
+        onChangeText={(text) => setText(text)}
+      />
     </View>
   );
 }
@@ -16,16 +34,5 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
   },
 });

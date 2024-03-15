@@ -3,15 +3,32 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 import { List, MD3Colors } from "react-native-paper";
+import CustomList from "@/components/CustomComponents/CustomList";
 
 export default function TabOneScreen() {
+  const items = [
+    {
+      id: 1,
+      name: "Caffee1",
+      ingredients: [
+        { name: "Ingredient 1" },
+        { name: "Ingredient 2" },
+        { name: "Ingredient 3" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Caffee 2",
+      ingredients: [
+        { name: "Ingredient A" },
+        { name: "Ingredient B" },
+        { name: "Ingredient C" },
+      ],
+    },
+  ];
   return (
     <View style={styles.container}>
-      <List.AccordionGroup>
-        <List.Accordion title="Accordion 1" id="1">
-          <List.Item title="Item 1" />
-        </List.Accordion>
-      </List.AccordionGroup>
+      <CustomList items={items} expand={true}></CustomList>
     </View>
   );
 }

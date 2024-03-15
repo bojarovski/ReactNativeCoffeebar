@@ -75,9 +75,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="order"
         options={{
-          title: "Oreder",
+          title: "My Coffees",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="card" size={24} color={color} />
+            <Ionicons name="flask" size={24} color={color} />
           ),
           headerRight: () => (
             <Link href="/modal" asChild>
