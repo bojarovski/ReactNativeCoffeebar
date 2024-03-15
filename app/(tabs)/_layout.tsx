@@ -34,7 +34,7 @@ export default function TabLayout() {
           title: "Coffees",
           tabBarIcon: ({ color }) => <TabBarIcon name="coffee" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/modalCoffee" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -57,7 +57,7 @@ export default function TabLayout() {
             <Ionicons name="rose" size={24} color={color} />
           ),
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/modalIngradient" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome

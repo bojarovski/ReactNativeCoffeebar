@@ -2,14 +2,15 @@ import React from "react";
 import { TextInput } from "react-native-paper";
 
 interface Props {
-  label: string;
-  text: string;
-  onChangeText: (text: string) => void;
+  label?: string;
+  text?: string;
+  onChangeText?: (text: string) => void;
 }
 
 const CustomInput: React.FC<Props> = ({ label, text, onChangeText }) => {
   return (
     <TextInput
+      left={<TextInput.Icon icon="cup" />}
       mode="outlined"
       style={{ margin: 8 }}
       label={label}

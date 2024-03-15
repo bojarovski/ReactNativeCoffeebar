@@ -6,15 +6,9 @@ interface Ingredient {
   name: string;
 }
 
-interface Ingredients {
-  id?: number;
-  name?: string;
-}
-
 interface Props {
   items: Coffee[];
-  secondItem: Ingredients[];
-  apiCall: (id: number) => []; // Callback function to call API
+  apiCall: (id: number) => {}; // Callback function to call API
 }
 
 const CustomList: React.FC<Props> = ({ items, apiCall }) => {
