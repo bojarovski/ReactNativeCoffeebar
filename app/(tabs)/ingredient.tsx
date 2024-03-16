@@ -1,34 +1,43 @@
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { View } from "@/components/Themed";
 import CustomList from "@/components/CustomComponents/CustomList";
+import {
+  deleteIngredient,
+  fetchIngredients,
+} from "../../store/models/ingrediantListSlice";
+import { useFocusEffect } from "expo-router";
+import { RootState } from "@/store/store";
 
-export default function TabTwoScreen() {
-  const items = [
-    {
-      id: 1,
-      name: "Ingredient 1",
-      ingredients: [
-        { name: "Caffee 1" },
-        { name: "Caffee 2" },
-        { name: "Caffee 3" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Ingredient 2",
-      ingredients: [
-        { name: "Caffee A" },
-        { name: "Caffee B" },
-        { name: "Caffee C" },
-      ],
-    },
-  ];
+export default function TabOneScreen() {
+  const dispatch = useDispatch();
+  const ingredient = useSelector(
+    (state: RootState) => state.ingredient.ingredients
+  );
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(fetchIngredients());
+    }, [dispatch])
+  );
+  const apiCall = (id: number) => {
+    dispatch(fetchIngredients());
+    return ingredient;
+  };
+  const deleteApi = (id: number) => {
+    dispatch(deleteIngredient({ IngredientId: id })).then(() => {
+      dispatch(fetchIngredients());
+    });
+  };
   return (
-    <View style={styles.container}>
-      <CustomList items={items} expand={true}></CustomList>
-    </View>
+    <ScrollView style={styles.container}>
+      <CustomList
+        deleteApi={deleteApi}
+        items={ingredient}
+        apiCall={apiCall}
+      ></CustomList>
+    </ScrollView>
   );
 }
 

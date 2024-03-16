@@ -17,7 +17,8 @@ export default function TabOneScreen() {
     }, [dispatch])
   );
   const apiCall = (id: number) => {
-    return dispatch(fetchCoffees());
+    dispatch(fetchCoffees());
+    return coffees;
   };
   const deleteApi = (id: number) => {
     dispatch(deleteCoffee({ coffeeId: id })).then(() => {

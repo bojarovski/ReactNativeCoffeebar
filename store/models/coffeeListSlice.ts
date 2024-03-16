@@ -65,8 +65,6 @@ export const deleteCoffee = createAsyncThunk<
   { Coffees: Coffee },
   { coffeeId: number }
 >("deleteCoffee", async ({ coffeeId }) => {
-  console.log(coffeeId);
-
   const response = await apiClient.deleteCoffee(coffeeId);
   if (response.kind === "success") {
     return {

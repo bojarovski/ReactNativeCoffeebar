@@ -16,7 +16,7 @@ interface Props {
 const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi }) => {
   const onPress = async (item: Coffee) => {
     const res = await apiCall(item.id);
-    setSecondItem(res.payload.coffees);
+    setSecondItem(res);
   };
 
   const deleteItem = async (id: number) => {

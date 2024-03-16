@@ -7,6 +7,7 @@ import { Button } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { createCoffee } from "@/store/models/coffeeListSlice";
 import CustomMultiSelect from "@/components/CustomComponents/CustomMultiSelect";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ModalScreen() {
   const [name, setName] = useState("");
@@ -26,18 +27,16 @@ export default function ModalScreen() {
   const priceText = (text: string) => {
     setPrice(text);
   };
+  const navigation = useNavigation();
 
   const handleCreate = () => {
-    console.log("Name:", name);
-    console.log("Description:", description, price);
     const body = {
       name: name,
       description: description,
       price: price,
     };
-    console.log(body, "FIRST");
-
     dispatch(createCoffee({ body: body }));
+    navigation.goBack();
   };
   const [selectedItems, setSelectedItems] = React.useState<any[]>([]); // Define the type of your selected items
   const data = [
@@ -63,7 +62,7 @@ export default function ModalScreen() {
         selected={selectedItems}
         setSelected={setSelectedItems}
       ></CustomMultiSelect>
-      <Button icon="" mode="contained" onPress={handleCreate}>
+      <Button mode="contained" onPress={handleCreate}>
         Create
       </Button>
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
