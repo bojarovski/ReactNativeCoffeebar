@@ -22,7 +22,6 @@ export default function TabTwoScreen() {
   const ingredients = useSelector(
     (state: RootState) => state.ingredient.ingredients
   );
-  const coffee = useSelector((state: RootState) => state.coffeeList.coffee);
   const coffees = useSelector((state: RootState) => state.coffeeList.coffees);
   const [selectedCoffee, setSelectedCoffee] = React.useState<any[]>([]);
   const [selectedEngerdiants, setSelectedEngrediants] = React.useState<any[]>(
@@ -39,7 +38,17 @@ export default function TabTwoScreen() {
       dispatch(fetchCoffees());
     }, [dispatch])
   );
+  const coffeeSelectedOptions = 1;
   const handleSelectedCoffee = (selectedCoffee) => {
+    console.log("selectedCoffee", selectedCoffee);
+
+    if (selectedCoffee.length > coffeeSelectedOptions) {
+      selectedCoffee = selectedCoffee.slice(0, coffeeSelectedOptions);
+    } else if (selectedCoffee.length === 0) {
+      setSelectedCoffee([]);
+      setSelectedEngrediants([]);
+      return;
+    }
     setSelectedCoffee(selectedCoffee);
     dispatch(fetchCoffee({ coffeeId: selectedCoffee[0] })).then((res) => {
       const ingredientId = res.payload.Coffee.map(
