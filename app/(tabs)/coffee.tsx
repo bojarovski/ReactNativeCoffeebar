@@ -17,7 +17,7 @@ export default function TabOneScreen() {
     }, [dispatch])
   );
   const apiCall = (id: number) => {
-    dispatch(fetchCoffees());
+    dispatch(fetchCoffee());
     return coffees;
   };
   const deleteApi = (id: number) => {
@@ -30,6 +30,7 @@ export default function TabOneScreen() {
       <CustomList
         deleteApi={deleteApi}
         items={coffees}
+        type={"coffee"}
         apiCall={apiCall}
       ></CustomList>
     </ScrollView>

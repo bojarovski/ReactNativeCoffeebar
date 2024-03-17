@@ -5,6 +5,7 @@ import { TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { fetchIngredient } from "../../store../../store/models/ingrediantListSlice";
+import { fetchCoffee } from "../../store../../store/models/coffeeListSlice";
 interface Ingredient {
   name: string;
 }
@@ -28,6 +29,15 @@ const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi, type }) => {
         console.log("res", res.payload);
         if (res.payload) {
           setSecondItem(res.payload.ingredientById);
+        } else {
+          setSecondItem([]);
+        }
+      });
+    } else if (type === "coffee") {
+      dispatch(fetchCoffee({ coffeeId: item.id })).then((res) => {
+        console.log("res", res.payload.Coffee);
+        if (res.payload) {
+          setSecondItem(res.payload.Coffee);
         } else {
           setSecondItem([]);
         }

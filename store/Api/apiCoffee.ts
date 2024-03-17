@@ -26,9 +26,9 @@ export const fetchCoffees = async (): Promise<NetworkResponse<Coffee[]>> => {
 };
 
 export const fetchCoffee = async (
-  eventId: number
+  coffeeId: number
 ): Promise<NetworkResponse<Coffee>> => {
-  const response = await _axios.get(`coffees/${eventId}`);
+  const response = await _axios.get(`coffee/${coffeeId}/ingredient`);
 
   if (response.data) {
     return {
