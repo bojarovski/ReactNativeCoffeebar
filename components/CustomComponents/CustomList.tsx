@@ -35,7 +35,6 @@ const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi, type }) => {
       });
     } else if (type === "coffee") {
       dispatch(fetchCoffee({ coffeeId: item.id })).then((res) => {
-        console.log("res", res.payload.Coffee);
         if (res.payload) {
           setSecondItem(res.payload.Coffee);
         } else {

@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 import { PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
@@ -53,6 +53,11 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.navigate("(tabs)");
+  }, [navigation]);
 
   return (
     <Provider store={store}>
