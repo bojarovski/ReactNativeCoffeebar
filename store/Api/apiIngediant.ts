@@ -65,7 +65,24 @@ export const createIngredient = async (
     };
   }
 };
+export const assignIngredientToCoffee = async (
+  body: Ingredient
+): Promise<NetworkResponse<Ingredient>> => {
+  const response = await _axios.post("add/ingredient", body);
 
+  if (response.data) {
+    console.log("Assigned Ingredient is ", response.data);
+    return {
+      kind: "success",
+      body: response.data,
+    };
+  } else {
+    console.log("false");
+    return {
+      kind: "failure",
+    };
+  }
+};
 export const deleteIngredient = async (
   IngredientId: number
 ): Promise<NetworkResponse<Ingredient>> => {

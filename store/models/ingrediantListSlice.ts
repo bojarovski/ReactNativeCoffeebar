@@ -20,6 +20,7 @@ const initialState: IngredientListState = {
   ingredientById: [],
   ingredient: {},
   addIngredient: {},
+  assignIngredient: [],
 };
 
 // APIS
@@ -66,7 +67,21 @@ export const createIngredient = createAsyncThunk<
     throw "Error fetching Ingredients";
   }
 });
+export const assignIngredientToCoffee = createAsyncThunk<
+  { assignIngredient: Ingredient },
+  { body: Ingredient }
+>("assignIngredientToCoffee", async ({ body }) => {
+  console.log("body", body);
 
+  const response = await apiClient.assignIngredientToCoffee(body);
+  if (response.kind === "success") {
+    return {
+      addIngredient: response.body ?? {},
+    };
+  } else {
+    throw "Error fetching Ingredients";
+  }
+});
 export const deleteIngredient = createAsyncThunk<
   { Ingredients: Ingredient },
   { IngredientId: number }
@@ -94,6 +109,9 @@ const ingredientList = createSlice({
     });
     builder.addCase(createIngredient.fulfilled, (state, action) => {
       state.addIngredient = action.payload.addIngredient;
+    });
+    builder.addCase(assignIngredientToCoffee.fulfilled, (state, action) => {
+      state.assignIngredient = action.payload.assignIngredient;
     });
   },
 });
