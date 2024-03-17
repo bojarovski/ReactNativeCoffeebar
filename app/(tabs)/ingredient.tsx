@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
-import { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View } from "@/components/Themed";
 import CustomList from "@/components/CustomComponents/CustomList";
@@ -16,15 +16,13 @@ export default function TabOneScreen() {
   const ingredient = useSelector(
     (state: RootState) => state.ingredient.ingredients
   );
+
   useFocusEffect(
     useCallback(() => {
       dispatch(fetchIngredients());
     }, [dispatch])
   );
-  const apiCall = (id: number) => {
-    dispatch(fetchIngredients());
-    return ingredient;
-  };
+
   const deleteApi = (id: number) => {
     dispatch(deleteIngredient({ IngredientId: id })).then(() => {
       dispatch(fetchIngredients());
@@ -35,7 +33,7 @@ export default function TabOneScreen() {
       <CustomList
         deleteApi={deleteApi}
         items={ingredient}
-        apiCall={apiCall}
+        type={"ingredient"}
       ></CustomList>
     </ScrollView>
   );

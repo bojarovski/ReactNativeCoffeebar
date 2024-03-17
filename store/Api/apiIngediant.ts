@@ -1,3 +1,4 @@
+import axios from "axios";
 import _axios from "../../plugins/axios";
 import { Ingredient } from "../models/ingrediantListSlice";
 
@@ -28,9 +29,9 @@ export const fetchIngredients = async (): Promise<
 };
 
 export const fetchIngredient = async (
-  eventId: number
+  IngredientId: number
 ): Promise<NetworkResponse<Ingredient>> => {
-  const response = await _axios.get(`ingredients/${eventId}`);
+  const response = await _axios.get(`ingredient/${IngredientId}/coffees`);
 
   if (response.data) {
     return {

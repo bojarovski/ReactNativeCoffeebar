@@ -2,7 +2,9 @@ import * as React from "react";
 import { Button, List, Menu, PaperProvider } from "react-native-paper";
 import { Coffee } from "@/store/models/coffeeListSlice";
 import { TouchableOpacity, View } from "react-native";
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { fetchIngredient } from "../../store../../store/models/ingrediantListSlice";
 interface Ingredient {
   name: string;
 }
@@ -11,12 +13,26 @@ interface Props {
   items: Coffee[];
   apiCall: (id: number) => {}; // Corrected type to Promise<void>
   deleteApi: (id: number) => void; // Corrected type to Promise<void>
+  type: String;
 }
 
-const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi }) => {
+const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi, type }) => {
+  const dispatch = useDispatch();
+  const ingredientById = useSelector(
+    (state: RootState) => state.ingredient.ingredientById
+  );
+
   const onPress = async (item: Coffee) => {
-    const res = await apiCall(item.id);
-    setSecondItem(res);
+    if (type === "ingredient") {
+      dispatch(fetchIngredient({ IngredientId: item.id })).then((res) => {
+        console.log("res", res.payload);
+        if (res.payload) {
+          setSecondItem(res.payload.ingredientById);
+        } else {
+          setSecondItem([]);
+        }
+      });
+    }
   };
 
   const deleteItem = async (id: number) => {

@@ -10,12 +10,14 @@ export type Ingredient = {
 
 export type IngredientListState = {
   ingredients: Ingredient[];
+  ingredientById: Ingredient[];
   ingredient: Ingredient;
   addIngredient: Ingredient;
 };
 
 const initialState: IngredientListState = {
   ingredients: [],
+  ingredientById: [],
   ingredient: {},
   addIngredient: {},
 };
@@ -37,13 +39,14 @@ export const fetchIngredients = createAsyncThunk(
 );
 
 export const fetchIngredient = createAsyncThunk<
-  { Ingredient: Ingredient },
+  { ingredientById: Ingredient },
   { IngredientId: number }
 >("fetchIngredient", async ({ IngredientId }) => {
   const response = await apiClient.fetchIngredient(IngredientId);
+
   if (response.kind === "success") {
     return {
-      Ingredient: response.body ?? {},
+      ingredientById: response.body ?? [],
     };
   } else {
     throw "Error fetching Ingredients";
@@ -87,7 +90,7 @@ const ingredientList = createSlice({
       state.ingredients = action.payload.Ingredients;
     });
     builder.addCase(fetchIngredient.fulfilled, (state, action) => {
-      state.ingredient = action.payload.Ingredient;
+      state.ingredientById = action.payload.ingredientById;
     });
     builder.addCase(createIngredient.fulfilled, (state, action) => {
       state.addIngredient = action.payload.addIngredient;
