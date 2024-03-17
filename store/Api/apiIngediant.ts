@@ -1,6 +1,7 @@
 import axios from "axios";
 import _axios from "../../plugins/axios";
 import { Ingredient } from "../models/ingrediantListSlice";
+import { Alert } from "react-native";
 
 type ResponseKind = "success" | "failure";
 
@@ -70,16 +71,16 @@ export const assignIngredientToCoffee = async (
 ): Promise<NetworkResponse<Ingredient>> => {
   const response = await _axios.post("add/ingredient", body);
 
-  if (response.data) {
+  if (!response) {
+    return {
+      kind: "failure",
+    };
+  } else {
+    Alert.alert("Assigned Ingredient is succesfuly");
     console.log("Assigned Ingredient is ", response.data);
     return {
       kind: "success",
       body: response.data,
-    };
-  } else {
-    console.log("false");
-    return {
-      kind: "failure",
     };
   }
 };

@@ -48,7 +48,6 @@ export default function ModalScreen() {
         onChangeText={descriptionText}
         label="Description"
       />
-      <CustomInput type="decimal-pad" onChangeText={priceText} label="Price" />
 
       <Button icon="" mode="contained" onPress={handleCreate}>
         Create

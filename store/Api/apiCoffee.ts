@@ -47,7 +47,6 @@ export const fetchCoffee = async (
 export const createCoffee = async (
   body: Coffee
 ): Promise<NetworkResponse<Coffee>> => {
-  console.log(body);
   const response = await _axios.post("coffees", body);
   if (response.data) {
     console.log("Created Coffee is ", response.data);

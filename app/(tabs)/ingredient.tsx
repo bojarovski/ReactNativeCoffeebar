@@ -2,7 +2,6 @@ import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View } from "@/components/Themed";
 import CustomList from "@/components/CustomComponents/CustomList";
 import {
   deleteIngredient,

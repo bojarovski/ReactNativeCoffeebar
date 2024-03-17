@@ -51,8 +51,6 @@ export const createSession = createAsyncThunk<{ sessionId: string }, Login>(
 export const deleteSession = createAsyncThunk<{ sessionId: string }, Login>(
   "createSession",
   async (body) => {
-    console.log(body);
-
     return { sessionId: "" };
   }
 );

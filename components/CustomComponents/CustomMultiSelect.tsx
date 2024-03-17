@@ -12,7 +12,7 @@ interface Props {
 
 const CustomMultiSelect: React.FC<Props> = ({
   placeholder,
-  data,
+  data = [],
   selected,
   setSelected,
   style,
@@ -29,7 +29,7 @@ const CustomMultiSelect: React.FC<Props> = ({
       labelField="name"
       valueField="id"
       placeholder={placeholder}
-      activeColor={"#665a6f"}
+      activeColor={"#000"}
       itemTextStyle={{ color: "#fff" }}
       searchPlaceholder="Search..."
       value={selected}

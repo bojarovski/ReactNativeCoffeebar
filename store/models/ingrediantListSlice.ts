@@ -71,8 +71,6 @@ export const assignIngredientToCoffee = createAsyncThunk<
   { assignIngredient: Ingredient },
   { body: Ingredient }
 >("assignIngredientToCoffee", async ({ body }) => {
-  console.log("body", body);
-
   const response = await apiClient.assignIngredientToCoffee(body);
   if (response.kind === "success") {
     return {

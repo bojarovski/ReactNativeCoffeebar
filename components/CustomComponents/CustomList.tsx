@@ -12,11 +12,11 @@ interface Ingredient {
 
 interface Props {
   items: Coffee[];
-  apiCall: (id: number) => Promise<Ingredient[]>; // Corrected type to Promise<Ingredient[]>
-  deleteApi: (id: number) => Promise<void>; // Corrected type to Promise<void>
+  deleteApi: (id: number) => void;
+  type: String;
 }
 
-const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi, type }) => {
+const CustomList: React.FC<Props> = ({ items, deleteApi, type }) => {
   const dispatch = useDispatch();
   const [openItemId, setOpenItemId] = React.useState<number | null>(null);
   const [ingredients, setIngredients] = React.useState<{
@@ -35,16 +35,17 @@ const CustomList: React.FC<Props> = ({ items, apiCall, deleteApi, type }) => {
       setOpenItemId(item.id);
       try {
         if (type === "ingredient") {
-          dispatch(fetchIngredient({ IngredientId: item.id })).then((res) => {
-            console.log("res", res.payload);
-            if (res.payload) {
-              setSecondItem(res.payload.ingredientById);
-            } else {
-              setSecondItem([]);
+          dispatch(fetchIngredient({ IngredientId: item.id })).then(
+            (res: any) => {
+              if (res.payload) {
+                setSecondItem(res.payload.ingredientById);
+              } else {
+                setSecondItem([]);
+              }
             }
-          });
+          );
         } else if (type === "coffee") {
-          dispatch(fetchCoffee({ coffeeId: item.id })).then((res) => {
+          dispatch(fetchCoffee({ coffeeId: item.id })).then((res: any) => {
             if (res.payload) {
               setSecondItem(res.payload.Coffee);
             } else {
